@@ -233,23 +233,38 @@ dir_type Car::getDir( void )
   return(_currentDir);
 }
 
-
+Car *audi;
 
 void setup() 
 {
   Car tesla;
   Car toyota(DIR_EAST);
-  Car *audi;
 
-  audi = new Car(DIR_SOUTH);
+  Serial.begin(9600);
 
+  Serial.print("Tesla starting direction: ");
+  Serial.println(tesla.getDir());
+  Serial.print("Toyota starting direction: ");
+  Serial.println(toyota.getDir());
+  
+  
   tesla.speedUp();
   toyota.turnRight();
-  audi->speedUp();
+
+  audi = new Car(DIR_SOUTH);
 }
 
 void loop() 
 {
-  // put your main code here, to run repeatedly:
+  if (audi->getSpeed() < 25)
+  {
+    audi->speedUp();
+  }
 
+
+  audi->turnRight();
+  Serial.print("The Audi is now going ");
+  Serial.println(getDirString(audi->getDir()));
+  delay(2000);
+  
 }
